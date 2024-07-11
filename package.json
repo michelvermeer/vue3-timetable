@@ -1,8 +1,22 @@
 {
   "name": "vue3-timetable",
+  "description": "A versatile timetable component for Vue 3",
   "private": false,
   "license": "MIT",
-  "version": "0.2.0",
+  "version": "0.2.1",
+  "keywords": [
+    "Timetable",
+    "Calendar",
+    "Events",
+    "Schedule",
+    "Line-up",
+    "Vue",
+    "Vue 3",
+    "Composition API",
+    "Typescript",
+    "Vite",
+    "Vitest"
+  ],
   "type": "module",
   "types": "package/dist/index.d.ts",
   "main": "package/dist/index.umd.js",
