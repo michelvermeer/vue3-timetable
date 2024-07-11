@@ -3,7 +3,7 @@
   "description": "A versatile timetable component for Vue 3",
   "private": false,
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.umd.js",

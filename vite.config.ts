@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "node:path";
@@ -36,7 +38,7 @@ export default defineConfig(({ mode }) => {
             },
           },
         },
-        sourcemap: true,
+        // sourcemap: true,
         emptyOutDir: true,
       },
       resolve: {
@@ -49,5 +51,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [vue()],
+    test: {
+      globals: true,
+      environment: "happy-dom",
+    },
   };
 });

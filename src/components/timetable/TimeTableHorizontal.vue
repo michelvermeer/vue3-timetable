@@ -3,7 +3,7 @@
     <div class="timetable-inner" :style="{ minWidth: `${hours.length * 60 + 160}px` }">
       <div class="ftr-timetable-datetime" :style="timeTableStyle.datetimeContainer">
         <div class="ftr-timetable-datetime__date" :style="timeTableStyle.date">
-          <select :value="selectedDate" @change="onChange($event)">
+          <select class="ftr-timetable-datetime__select" :value="selectedDate" @change="onChange($event)">
             <option v-for="dt in dates" :value="dt" :key="dt">
               {{ formatDate(dt, 'eee dd MMMM') }}
             </option>

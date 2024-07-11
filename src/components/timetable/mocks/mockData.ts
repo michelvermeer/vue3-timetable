@@ -13,6 +13,28 @@ export const timetableMockLocations: TimeTableLocation[] = [
       color: "#000",
       boxShadow: "inset 0 0 15px 5px rgba(0, 0, 0, 0.2)",
     },
+    items: [
+      {
+        id: "e1",
+        startDate: `${dateToday}T08:00:00`,
+        endDate: `${dateToday}T12:00:00`,
+        name: "Main Event",
+        info: "Don't miss this!",
+        locationId: 1,
+        style: {
+          backgroundColor: "#116599",
+          color: "#fff",
+          fontWeight: "bold",
+          fontSize: "0.875rem",
+          boxShadow: "inset 0 0 15px 5px rgba(0, 0, 0, 0.2)",
+        },
+        data: {
+          type: "Music",
+          category: "Music",
+          isFree: true,
+        },
+      },
+    ],
   },
   {
     id: 2,
@@ -33,26 +55,6 @@ export const timetableMockLocations: TimeTableLocation[] = [
 ];
 
 export const timetableMockItems: TimeTableItem[] = [
-  {
-    id: "e1",
-    startDate: `${dateToday}T08:00:00`,
-    endDate: `${dateToday}T12:00:00`,
-    name: "Main Event",
-    info: "Don't miss this!",
-    locationId: 1,
-    style: {
-      backgroundColor: "#116599",
-      color: "#fff",
-      fontWeight: "bold",
-      fontSize: "0.875rem",
-      boxShadow: "inset 0 0 15px 5px rgba(0, 0, 0, 0.2)",
-    },
-    data: {
-      type: "Music",
-      category: "Music",
-      isFree: true,
-    },
-  },
   {
     id: "e2",
     startDate: `${dateToday}T12:00:00`,

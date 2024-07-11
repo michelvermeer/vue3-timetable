@@ -3,7 +3,7 @@
 A versatile, configurable and responsive timetable component for Vue 3.
 Ideal for showing the agenda for locations on a specific date.
 
-![Example](https://github.com/michelvermeer/ftr-timetable/blob/main/src/assets/ftr-timetable-example.png?raw=true)
+![Example](https://github.com/michelvermeer/vue3-timetable/blob/master/src/assets/vue3-timetable.png?raw=true)
 
 ## Installation
 

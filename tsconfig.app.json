@@ -36,7 +36,10 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+
+    /* Testing */
+    "types": ["vitest/globals"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
