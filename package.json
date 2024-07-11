@@ -24,7 +24,7 @@
   "homepage": "https://michelvermeer.com/timetable",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/michelvermeer/ftr-timetable.git"
+    "url": "git+https://github.com/michelvermeer/vue3-timetable.git"
   },
   "scripts": {
     "dev": "vite",
