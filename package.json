@@ -3,7 +3,7 @@
   "description": "A versatile timetable component for Vue 3",
   "private": false,
   "license": "MIT",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "keywords": [
     "Timetable",
     "Calendar",

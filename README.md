@@ -16,22 +16,24 @@ npm i vue3-timetable
 ```ts
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { TimeTable } from 'vue3-timetable';
+import { TimeTable, type TimeTableItem, type TimeTableLocation } from 'vue3-timetable';
 
 export default defineComponent({
     name: 'App',
     components: { TimeTable },
     setup() {
-      return {
-        items: [{
+      const items: TimeTableItem[] = [
+        {
           id: "e3",
           locationId: 2,
           startDate: `2024-07-09T14:00:00`,
           endDate: `2024-07-09T16:00:00`,
           name: "Surprise Event",
-        }],
-        locations: [
-          {
+        }
+      ];
+
+      const locations: TimeTableLocation[] = [
+        {
             id: 1,
             name: "Mainstage",
             items: [
@@ -60,7 +62,11 @@ export default defineComponent({
               },
             ],
           }
-        ],
+      ];
+
+      return {
+        items,
+        locations,
       };
     },
   });
