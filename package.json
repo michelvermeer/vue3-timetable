@@ -1,0 +1,50 @@
+{
+  "name": "vue3-timetable",
+  "private": false,
+  "license": "MIT",
+  "version": "0.1.0",
+  "type": "module",
+  "types": "package/dist/index.d.ts",
+  "main": "package/dist/index.umd.js",
+  "module": "package/dist/index.es.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./package/dist/index.es.js",
+      "require": "./package/dist/index.umd.js",
+      "types": "./package/dist/index.d.ts"
+    }
+  },
+  "files": [
+    "/package/dist"
+  ],
+  "author": "Michel Vermeer <info@michelvermeer.com> (https://michelvermeer.com/)",
+  "homepage": "https://michelvermeer.com/timetable",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michelvermeer/ftr-timetable.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "export": "vue-tsc && vite build --mode lib",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "date-fns": "^3.6.0",
+    "vue": "^3.4.31"
+  },
+  "devDependencies": {
+    "@types/babel__core": "^7.20.5",
+    "@types/node": "^20.14.10",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "sass": "^1.77.6",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.3",
+    "vite-plugin-css-injected-by-js": "^3.5.1",
+    "vite-plugin-dts": "^2.3.0",
+    "vue-tsc": "^2.0.26"
+  }
+}

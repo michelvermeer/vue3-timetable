@@ -1,0 +1,34 @@
+{
+  "name": "vue3-timetable",
+  "description": "A versatile timetable component for Vue 3",
+  "private": false,
+  "license": "MIT",
+  "version": "0.1.0",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "/dist"
+  ],
+  "author": "Michel Vermeer <info@michelvermeer.com> (https://michelvermeer.com/)",
+  "homepage": "https://michelvermeer.com/timetable",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michelvermeer/ftr-timetable.git"
+  },
+  "peerDependencies": {
+    "vue": ">=3"
+  }
+}
