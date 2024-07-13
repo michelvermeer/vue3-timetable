@@ -13,6 +13,7 @@ Ideal for showing the agenda for locations on a specific date.
 - Increased configurability of the timetable style and its locations and items
 - The current time indicator can be hidden
 - Fixed the horizontal scrollbar which was hidden, so mouse-only users couldn't scroll horizontally
+- The display format of the dates is now configurable
 
 ## Installation
 
@@ -95,17 +96,18 @@ export default defineComponent({
 
 Options
 
-| Option          | Type                                                 | Required | Default    | Description                                                                                                                               |
-| --------------- | ---------------------------------------------------- | -------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| locations       | [TimeTableLocation[]](#timetablelocation)            | yes      |            | The locations to show in the timetable                                                                                                    |
-| items           | [TimeTableItem[]](#timetableitem)                    | no       | []         | The events to show in the timetable                                                                                                       |
-| variant         | _string_                                             | no       | horizontal | The display style of the timetable. Can be `horizontal` or `vertical`. Defaults to vertical when unspecified and there is only 1 location |
-| startingHour    | _number_                                             | no       | 6          | Starting hour of a day                                                                                                                    |
-| numberOfHours   | _number_                                             | no       | 24         | Number of hours to display for a single day                                                                                               |
-| styles          | [TimeTableStyles](#timetablestyles)                  | no       |            | Custom styling to apply to the timetable                                                                                                  |
-| onItemClick     | _function(item: `TimeTableRenderedItem<T>`) => void_ | no       |            | Callback function when an item is clicked                                                                                                 |
-| onLocationClick | _function(item: `TimeTableLocation`) => void_        | no       |            | Callback function when a location is clicked                                                                                              |
-| showTimeMarker  | _boolean_                                            | no       | true       | Show or hide the current time marker                                                                                                      |
+| Option          | Type                                                 | Required | Default     | Description                                                                                                                               |
+| --------------- | ---------------------------------------------------- | -------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| locations       | [TimeTableLocation[]](#timetablelocation)            | yes      |             | The locations to show in the timetable                                                                                                    |
+| items           | [TimeTableItem[]](#timetableitem)                    | no       | []          | The events to show in the timetable                                                                                                       |
+| variant         | _string_                                             | no       | horizontal  | The display style of the timetable. Can be `horizontal` or `vertical`. Defaults to vertical when unspecified and there is only 1 location |
+| startingHour    | _number_                                             | no       | 6           | Starting hour of a day                                                                                                                    |
+| numberOfHours   | _number_                                             | no       | 24          | Number of hours to display for a single day                                                                                               |
+| styles          | [TimeTableStyles](#timetablestyles)                  | no       |             | Custom styling to apply to the timetable                                                                                                  |
+| onItemClick     | _function(item: `TimeTableRenderedItem<T>`) => void_ | no       |             | Callback function when an item is clicked                                                                                                 |
+| onLocationClick | _function(item: `TimeTableLocation`) => void_        | no       |             | Callback function when a location is clicked                                                                                              |
+| dateFormat      | _string_                                             | no       | eee dd MMMM | Date format of the date picker. [Guide](https://date-fns.org/v3.6.0/docs/format)                                                          |
+| showTimeMarker  | _boolean_                                            | no       | true        | Show or hide the current time marker                                                                                                      |
 
 ### TimeTableLocation
 
