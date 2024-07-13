@@ -17,7 +17,10 @@ export const useItemsInRange = (
   const end = addHours(start, numberOfHours);
 
   for (const i of items) {
-    if (new Date(i.startDate) >= start && new Date(i.startDate) <= end) {
+    if (
+      (new Date(i.startDate) >= start && new Date(i.startDate) <= end) ||
+      (new Date(i.endDate) >= start && new Date(i.endDate) <= end)
+    ) {
       itemsInRange.push(i);
     }
   }

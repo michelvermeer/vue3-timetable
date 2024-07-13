@@ -23,14 +23,15 @@ export const useItemDimensions = (
     diffDays
   );
 
-  const itemStartOffset = differenceInMinutes(
-    new Date(item.startDate),
-    dayStart
+  const itemStart = new Date(
+    Math.max(new Date(item.startDate).getTime(), new Date(dayStart).getTime())
   );
+
+  const itemStartOffset = differenceInMinutes(itemStart, dayStart);
 
   const durationMinutes = differenceInMinutes(
     new Date(item.endDate),
-    new Date(item.startDate)
+    itemStart
   );
 
   const itemSize = Math.min(
@@ -41,5 +42,9 @@ export const useItemDimensions = (
   return {
     itemStartOffset,
     itemSize,
+    cutoffStart: new Date(item.startDate).getTime() < dayStart.getTime(),
+    cutoffEnd:
+      new Date(item.endDate).getTime() >
+      addHours(dayStart, numberOfHours).getTime(),
   };
 };

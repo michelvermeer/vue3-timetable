@@ -28,9 +28,18 @@ describe("TimeTable", () => {
     expect(items.length).toBeGreaterThan(0);
   });
 
+  it("Shows the main event", () => {
+    const item = cmp.find(".ftr-timetable-item[data-item-id='e1']");
+    expect(item).toBeTruthy();
+    expect(item.text()).toContain("Main Event");
+    expect(item.attributes().style).toContain("width: 240px;");
+  });
+
   it("Has the correct initial selected date value", () => {
     const dt = format(new Date(), "yyyy-MM-dd");
-    const el = cmp.find<HTMLSelectElement>(".ftr-timetable-datetime__select");
+    const el = cmp.find<HTMLSelectElement>(
+      ".ftr-timetable-datetime__select select"
+    );
     expect(el.element.value).toBe(dt);
   });
 });

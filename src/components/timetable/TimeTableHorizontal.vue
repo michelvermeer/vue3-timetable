@@ -1,29 +1,33 @@
 <template>
-  <div class="ftr-timetable ftr-timetable__horizontal" ref="ttRef" :style="{ height: `${locations.length * 60 + 44}px`, ...timeTableStyle.general }">
+  <div class="ftr-timetable ftr-timetable__horizontal" ref="ttRef" :style="{ ...timeTableStyle, height: `${locations.length * 60 + 52}px` }">
     <div class="timetable-inner" :style="{ minWidth: `${hours.length * 60 + 160}px` }">
-      <div class="ftr-timetable-datetime" :style="timeTableStyle.datetimeContainer">
-        <div class="ftr-timetable-datetime__date" :style="timeTableStyle.date">
-          <select class="ftr-timetable-datetime__select" :value="selectedDate" @change="onChange($event)">
-            <option v-for="dt in dates" :value="dt" :key="dt">
-              {{ formatDate(dt, 'eee dd MMMM') }}
-            </option>
-          </select>
+      <div class="ftr-timetable-datetime">
+        <div class="ftr-timetable-datetime__date">
+          <div class="ftr-timetable-datetime__select">
+            <select :value="selectedDate" @change="onChange($event)">
+              <option v-for="dt in dates" :value="dt" :key="dt">
+                {{ formatDate(dt, dateFormat) }}
+              </option>
+            </select>
+          </div>
         </div>
         <div class="ftr-timetable-datetime__hours">
-          <div class="ftr-timetable-datetime__hour" v-for="hour in hours" :key="hour.display" :style="timeTableStyle.hour">
-            {{ hour.display }}
+          <div class="ftr-timetable-datetime__hour" v-for="hour in hours" :key="hour.display">
+            <span>{{ hour.display }}</span>
           </div>
           <TimeTableMarker :date="selectedDate" :ttRef="ttRef" />
         </div>
       </div>
-      <div class="ftr-timetable-location-container" v-for="location in locations" :key="location.id" :style="timeTableStyle.locationContainer">
-        <div class="ftr-timetable-location" :title="location.name" :style="{ ...timeTableStyle.location, ...location.style }" @click="onLocationClick?.(location)">
-          <div className="ftr-timetable-location__inner">
-            <div className="ftr-timetable-location__name">{{ location.name }}</div>
+      <div class="ftr-timetable-locations">
+        <div class="ftr-timetable-location-container" v-for="location in locations" :key="location.id" :data-location-id="location.id">
+          <div class="ftr-timetable-location" :title="location.name" :style="location.style" @click="onLocationClick?.(location)">
+            <div className="ftr-timetable-location__inner">
+              <div className="ftr-timetable-location__name">{{ location.name }}</div>
+            </div>
           </div>
-        </div>
-        <div className="ftr-timetable-location-items">
-          <Item v-for="item in itemsForLocation(location.id)" :key="item.item.id" :item="item.item" :offset="item.offset" :intersections="item.intersections" />
+          <div className="ftr-timetable-location-items">
+            <Item v-for="item in itemsForLocation(location.id)" :key="item.item.id" :item="item.item" :offset="item.offset" :intersections="item.intersections" />
+          </div>
         </div>
       </div>
     </div>
@@ -31,8 +35,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, ref, Ref, type PropType } from 'vue'
-import type { TimeTableHour, TimeTableItem, TimeTableLocation, TimeTableStyles } from './types';
+import { type ComputedRef, defineComponent, inject, ref, Ref, type PropType } from 'vue'
+import type { TimeTableHour, TimeTableItem, TimeTableLocation } from './types';
 import TimeTableMarker from './TimeTableMarker.vue';
 import { format } from 'date-fns';
 import Item from './TimeTableItem.vue';
@@ -67,42 +71,12 @@ export default defineComponent({
   data() {
     const onDateChange = inject<(date: string) => void>('onDateChange');
     const onLocationClick = inject<(item: TimeTableLocation) => void>('onLocationClick');
-    const styles = inject<TimeTableStyles>('styles');
+    const timeTableStyle = inject<ComputedRef>('timetableStyle')!;
+    const dateFormat = inject<string>('dateFormat');
     const selectedDate = inject<Ref<string>>('selectedDate');
-    
-    const timeTableStyle = computed(() => {
-      if (!styles) {
-        return {};
-      }
-  
-      return {
-        general: {
-          backgroundColor: styles.backgroundColor,
-          color: styles.textColor
-        },
-        datetimeContainer: {
-          borderBottom: styles.borderStyle,
-          backgroundColor: styles.dateBackgroundColor || styles.backgroundColor
-        },
-        date: {
-          borderRight: styles.borderStyle,
-          backgroundColor: styles.dateBackgroundColor || styles.backgroundColor
-        },
-        hour: {
-          borderLeft: styles.borderStyle
-        },
-        locationContainer: {
-          borderBottom: styles.borderStyle
-        },
-        location: {
-          borderRight: styles.borderStyle,
-          backgroundColor: styles.locationBackgroundColor || styles.backgroundColor,
-          color: styles.locationTextColor
-        }
-      };
-    });
 
     return {
+      dateFormat,
       onDateChange,
       onLocationClick,
       timeTableStyle,
@@ -126,20 +100,41 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .ftr-timetable {
-  ::-webkit-scrollbar {
-    display: none;
+  --scroll-color: var(--custom-date-background-color, #1f2937);
+  --border-style: var(--custom-border-style, solid 2px rgba(255, 255, 255, 0.1));
+  --text-color: var(--custom-text-color, #fff);
+  --background-color: var(--custom-background-color, #1f2937);
+  --date-background-color: var(--custom-date-background-color, #1f2937);
+  --date-text-color: var(--custom-date-text-color, inherit);
+  --datepicker-background-color: var(--custom-datepicker-background-color, #1f2937);
+  --location-background-color: var(--custom-location-background-color, #1f2937);
+  --location-text-color: var(--custom-location-text-color, inherit);
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    height: 8px;
+    background: var(--background-color);
   }
 
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar-thumb {
+    background: var(--scroll-color); 
+    border-radius: 50%;
+    border: solid 2px var(--background-color);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: hsl(from var(--scroll-color) h s calc(l - 5));
+  }
+
   position: relative;
   overflow: auto;
   width: 100%;
   max-height: 100%;
   max-width: 100vw;
   box-sizing: border-box !important;
-  color: #fff;
-  background-color: #1f2937;
+  color: var(--text-color);
+  background: var(--background-color);
+  padding-bottom: 6px;
 
   * {
     box-sizing: border-box !important;
@@ -158,34 +153,50 @@ export default defineComponent({
       position: sticky;
       top: 0;
       z-index: 3;
-      background-color: #1f2937;
-      border-bottom: solid 2px #374151;
+      background: var(--date-background-color);
       width: 100%;
       height: 44px;
-
+      color: var(--date-text-color);
+  
       &__date {
         position: sticky;
         top: 0;
         left: 0;
         z-index: 2;
-        background-color: #1f2937;
-        border-right: solid 2px #374151;
+        background: var(--datepicker-background-color);
         display: flex;
         justify-content: space-between;
         width: 10rem;
         height: 100%;
         flex-shrink: 0;
         flex-direction: row;
-        padding: 0 0.25rem;
+        padding-left: 0.5rem;
+        border-bottom: var(--border-style);
+      }
+
+      &__select {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding-left: 0.5rem;
+        // border-bottom: var(--border-style);
+        border-right: var(--border-style);
+        // box-shadow: 0 5px 5px -4px rgba(0, 0, 0, 1);
 
         select {
-          background-color: transparent;
+          background: transparent url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23fff'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat calc(100% - 10px) calc(50% + 3px);
+          background-size: 10px;
           color: inherit;
+          font-family: inherit;
           border: none;
           outline: none;
           font-size: 0.875rem;
           line-height: 1.25rem;
           width: 100%;
+          -webkit-appearance: none;
+          appearance: none;
         }
       }
 
@@ -193,7 +204,7 @@ export default defineComponent({
         display: flex;
         flex-direction: row;
         position: relative;
-        // background-color: #1f2937;
+        border-bottom: var(--border-style);
         width: 100%;
         height: 100%;
       }
@@ -203,35 +214,70 @@ export default defineComponent({
         flex-direction: column;
         justify-content: flex-end;
         width: 60px;
-        padding-left: 0.25rem;
-        padding-bottom: 0.25rem;
-        font-size: 0.75rem;
+        // padding-left: 0.25rem;
+        // padding-bottom: 0.25rem;
+        font-size: 0.65rem;
         height: 100%;
-        border-left: solid 2px #374151;
+        position: relative;
+        // border-left: solid 2px #374151;
+        border-left: none !important;
+
+        &:not(:first-child) {
+          &:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 10px;
+            border-left: var(--border-style);
+          }
+        }
+
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          height: 5px;
+          border-left: var(--border-style);
+        }
 
         &:first-child {
           border-left: none !important;
+
+          span {
+            display: none;
+          }
+        }
+
+        span {
+          transform: translate(-25%, -12px);
         }
       }
     }
   }
 
+  .ftr-timetable-locations {
+    display: flex;
+    flex-direction: column;
+    // gap: 6px;
+    // padding-top: 6px;
+  }
+  
   .ftr-timetable-location-container {
     display: flex;
     flex-direction: row;
-    border-bottom: solid 2px #374151;
     height: 60px;
 
     .ftr-timetable-location {
       height: 100%;
       width: 10rem;
-      z-index: 2;
+      z-index: 4;
       position: sticky;
       top: 0;
       left: 0;
-      color: inherit;
-      background-color: #000;
-      border-right: solid 2px #374151;
+      color: var(--location-text-color);
+      background-color: var(--location-background-color);
 
       &__inner {
         display: flex;
@@ -240,6 +286,8 @@ export default defineComponent({
         padding: 0 0.5rem;
         font-size: 0.875rem;
         line-height: 1.25rem;
+        border-right: var(--border-style);
+        border-bottom: var(--border-style);
       }
 
       &__name {
@@ -257,6 +305,7 @@ export default defineComponent({
       flex: 1;
       position: relative;
       height: 100%;
+      border-bottom: var(--border-style);
     }
   }
 }

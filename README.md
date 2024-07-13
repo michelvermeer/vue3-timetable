@@ -5,6 +5,15 @@ Ideal for showing the agenda for locations on a specific date.
 
 ![Example](https://github.com/michelvermeer/vue3-timetable/blob/master/src/assets/vue3-timetable.png?raw=true)
 
+### Changes in version 1.0
+
+- Items can contain a _cancelled_ property
+- Increased test coverage
+- Items starting before or ending after the timetable scope show an indicator
+- Increased configurability of the timetable style and its locations and items
+- The current time indicator can be hidden
+- Fixed the horizontal scrollbar which was hidden, so mouse-only users couldn't scroll horizontally
+
 ## Installation
 
 ```
@@ -59,6 +68,7 @@ export default defineComponent({
                 startDate: `2024-07-09T12:00:00`,
                 endDate: `2024-07-09T17:00:00`,
                 name: "Fun Time",
+                cancelled: true,
               },
             ],
           }
@@ -90,12 +100,12 @@ Options
 | locations       | [TimeTableLocation[]](#timetablelocation)            | yes      |            | The locations to show in the timetable                                                                                                    |
 | items           | [TimeTableItem[]](#timetableitem)                    | no       | []         | The events to show in the timetable                                                                                                       |
 | variant         | _string_                                             | no       | horizontal | The display style of the timetable. Can be `horizontal` or `vertical`. Defaults to vertical when unspecified and there is only 1 location |
-| dates           | _string[]_                                           | no       |            | Predefined dates to choose from. The first date will be selected by default. The format needs to be `yyyy-MM-dd`                          |
 | startingHour    | _number_                                             | no       | 6          | Starting hour of a day                                                                                                                    |
 | numberOfHours   | _number_                                             | no       | 24         | Number of hours to display for a single day                                                                                               |
 | styles          | [TimeTableStyles](#timetablestyles)                  | no       |            | Custom styling to apply to the timetable                                                                                                  |
 | onItemClick     | _function(item: `TimeTableRenderedItem<T>`) => void_ | no       |            | Callback function when an item is clicked                                                                                                 |
 | onLocationClick | _function(item: `TimeTableLocation`) => void_        | no       |            | Callback function when a location is clicked                                                                                              |
+| showTimeMarker  | _boolean_                                            | no       | true       | Show or hide the current time marker                                                                                                      |
 
 ### TimeTableLocation
 
@@ -121,22 +131,26 @@ Options
 | endDate   | _Date_ / _string_                           | yes      |         | Item end date                             |
 | data      | _{}_                                        | no       |         | Optional extra data. Useful for callbacks |
 | style     | [CustomCSSProperties](#customcssproperties) | no       |         | Custom style for the item                 |
+| className | _string_                                    | no       |         | Custom additional class for the item      |
+| cancelled | _boolean_                                   | no       | false   | Shows the item as cancelled               |
 
 ### TimeTableStyles
 
 Options
 
-| Option                  | Type     | Default           | Description                                                       |
-| ----------------------- | -------- | ----------------- | ----------------------------------------------------------------- |
-| backgroundColor         | _string_ | #1f2937           | Background color                                                  |
-| borderStyle             | _string_ | solid 2px #374151 | CSS Border style, specify "none" to remove borderStyle            |
-| dateBackgroundColor     | _string_ | #1f2937           | Background color of the date and hours. Avoid using "transparent" |
-| itemBackgroundColor     | _string_ | #304151           | Background color of an item                                       |
-| itemTextColor           | _string_ | inherit           | Text color of an item                                             |
-| locationBackgroundColor | _string_ | #000              | Background color of a location                                    |
-| locationTextColor       | _string_ | inherit           | Text color of a location                                          |
-| textColor               | _string_ | #fff              | General text color used in the timetable                          |
-| timeMarkerColor         | _string_ | #666              | Color of the current time indicator                               |
+| Option                    | Type     | Default                  | Description                                                 |
+| ------------------------- | -------- | ------------------------ | ----------------------------------------------------------- |
+| backgroundColor           | _string_ | #1f2937                  | Timetable Background                                        |
+| borderStyle               | _string_ | solid 2px #374151        | CSS Border style, specify "none" to remove borderStyle      |
+| dateBackgroundColor       | _string_ | #1f2937                  | Background of the date and hours. Avoid using "transparent" |
+| dateTextColor             | _string_ | inherit                  | Text color of the date and hours                            |
+| datePickerBackgroundColor | _string_ | #1f2937                  | Background of the date picker                               |
+| itemBackgroundColor       | _string_ | #304151                  | Background of an item                                       |
+| itemTextColor             | _string_ | inherit                  | Text color of an item                                       |
+| locationBackgroundColor   | _string_ | #000                     | Background of a location                                    |
+| locationTextColor         | _string_ | inherit                  | Text color of a location                                    |
+| textColor                 | _string_ | #fff                     | General text color used in the timetable                    |
+| timeMarkerColor           | _string_ | rgba(255, 255, 255, 0.3) | Color of the current time indicator                         |
 
 ### CustomCSSProperties
 

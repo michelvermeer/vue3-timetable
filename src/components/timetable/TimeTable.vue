@@ -31,9 +31,9 @@ export default defineComponent({
       type: Array as PropType<TimeTableItem[]>,
       default: []
     },
-    dates: {
-      type: Array as PropType<string[]>,
-    },
+    // dates: {
+    //   type: Array as PropType<string[]>,
+    // },
     onItemClick: Function as PropType<(item: TimeTableItem) => void>,
     onLocationClick: Function as PropType<(item: TimeTableItem) => void>,
     renderItem: Function as PropType<(item: TimeTableItem) => HTMLElement>,
@@ -48,6 +48,14 @@ export default defineComponent({
     styles: {
       type: Object as PropType<TimeTableStyles>,
       default: {}
+    },
+    dateFormat: {
+      type: String as PropType<string>,
+      default: 'eee dd MMMM'
+    },
+    showTimeMarker: {
+      type: Boolean,
+      default: true
     }
   },
   setup(props) {
@@ -89,6 +97,24 @@ export default defineComponent({
       return hrs;
     });
 
+    const timeTableStyle = computed(() => {
+      const styles: TimeTableStyles = props.styles;
+      if (!styles) {
+        return {};
+      }
+
+      return {
+        '--custom-border-style': styles.borderStyle,
+        '--custom-background-color': styles.backgroundColor,
+        '--custom-text-color': styles.textColor,
+        '--custom-date-background-color': styles.dateBackgroundColor,
+        '--custom-date-text-color': styles.dateTextColor,
+        '--custom-datepicker-background-color': styles.datePickerBackgroundColor || styles.dateBackgroundColor,
+        '--custom-location-background-color': styles.locationBackgroundColor,
+        '--custom-location-text-color': styles.locationTextColor,
+      };
+    });
+
     function onDateChange (date: string) {
       selectedDate.value = date;
     }
@@ -96,6 +122,7 @@ export default defineComponent({
     provide('selectedDate', selectedDate);
     provide('startingHour', startingHour);
     provide('numberOfHours', numberOfHours);
+    provide('timetableStyle', timeTableStyle);
   
     return {
       ...props,
@@ -111,6 +138,8 @@ export default defineComponent({
       onItemClick: this.onItemClick,
       onLocationClick: this.onLocationClick,
       onDateChange: this.onDateChange,
+      dateFormat: this.dateFormat,
+      showTimeMarker: this.showTimeMarker,
       styles: this.styles
     }
   }

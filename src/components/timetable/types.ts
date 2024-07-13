@@ -19,6 +19,8 @@ export interface TimeTableStyles {
   backgroundColor?: string;
   borderStyle?: string;
   dateBackgroundColor?: string;
+  dateTextColor?: string;
+  datePickerBackgroundColor?: string;
   itemBackgroundColor?: string;
   itemTextColor?: string;
   locationBackgroundColor?: string;
@@ -53,6 +55,7 @@ export interface TimeTableItem {
   data?: Record<string, unknown>;
   style?: CustomCSSProperties;
   className?: string;
+  cancelled?: boolean;
 }
 
 export interface itemsWithIntersections {

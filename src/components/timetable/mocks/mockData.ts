@@ -9,8 +9,8 @@ export const timetableMockLocations: TimeTableLocation[] = [
     id: 1,
     name: "Mainstage",
     style: {
-      backgroundColor: "#888",
-      color: "#000",
+      backgroundColor: "#116599",
+      color: "#fff",
       boxShadow: "inset 0 0 15px 5px rgba(0, 0, 0, 0.2)",
     },
     items: [
@@ -26,7 +26,7 @@ export const timetableMockLocations: TimeTableLocation[] = [
           color: "#fff",
           fontWeight: "bold",
           fontSize: "0.875rem",
-          boxShadow: "inset 0 0 15px 5px rgba(0, 0, 0, 0.2)",
+          // boxShadow: "inset 0 0 15px 5px rgba(0, 0, 0, 0.2)",
         },
         data: {
           type: "Music",
@@ -58,7 +58,7 @@ export const timetableMockItems: TimeTableItem[] = [
   {
     id: "e2",
     startDate: `${dateToday}T12:00:00`,
-    endDate: `${dateToday}T16:30:00`,
+    endDate: `${dateToday}T22:30:00`,
     name: "Event 2",
     locationId: 1,
     className: "special-event",
@@ -78,8 +78,8 @@ export const timetableMockItems: TimeTableItem[] = [
   {
     id: "e3",
     startDate: `${dateToday}T07:00:00`,
-    endDate: `${dateToday}T10:30:00`,
-    name: "Event 3",
+    endDate: `${dateToday}T08:00:00`,
+    name: "Cinamon challenge",
     locationId: 2,
   },
   {
@@ -105,7 +105,7 @@ export const timetableMockItems: TimeTableItem[] = [
   },
   {
     id: "e7",
-    startDate: `${dateToday}T07:00:00`,
+    startDate: `${dateToday}T05:00:00`,
     endDate: `${dateToday}T10:30:00`,
     name: "Event 7",
     locationId: 3,
@@ -116,6 +116,7 @@ export const timetableMockItems: TimeTableItem[] = [
     endDate: `${dateToday}T10:30:00`,
     name: "Event 7B",
     locationId: 3,
+    cancelled: true,
   },
 ];
 
@@ -124,7 +125,7 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
     id: 1,
     name: "Red team",
     style: {
-      backgroundColor: "#853232",
+      background: "linear-gradient(170deg, #282D43, #853232)",
     },
     items: [
       {
@@ -133,15 +134,16 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
         info: "Gather at the office",
         startDate: new Date(addHours(startOfDay(new Date()), 8.5)),
         endDate: new Date(addHours(startOfDay(new Date()), 10)),
-        style: {
-          backgroundColor: "#877e45",
-        },
       },
       {
         id: 101,
         name: "Hurdles",
         startDate: new Date(addHours(startOfDay(new Date()), 10.25)),
         endDate: new Date(addHours(startOfDay(new Date()), 11.75)),
+        style: {
+          backgroundColor: "#b3ae57",
+          color: "#444",
+        },
       },
       {
         id: 110,
@@ -154,6 +156,9 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
         name: "Lacrosse for dummies",
         startDate: new Date(addHours(startOfDay(new Date()), 13.25)),
         endDate: new Date(addHours(startOfDay(new Date()), 14.75)),
+        style: {
+          backgroundColor: "#9f93a0",
+        },
       },
       {
         id: 103,
@@ -170,6 +175,9 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
         name: "Celebration drinks",
         startDate: new Date(addHours(startOfDay(new Date()), 17)),
         endDate: new Date(addHours(startOfDay(new Date()), 19)),
+        style: {
+          backgroundColor: "#324b41",
+        },
       },
     ],
   },
@@ -177,7 +185,7 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
     id: 2,
     name: "Blue team",
     style: {
-      backgroundColor: "#116599",
+      background: "linear-gradient(#282D43, #116599)",
     },
     items: [
       {
@@ -186,15 +194,15 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
         info: "Gather at the office",
         startDate: new Date(addHours(startOfDay(new Date()), 8.5)),
         endDate: new Date(addHours(startOfDay(new Date()), 10)),
-        style: {
-          backgroundColor: "#877e45",
-        },
       },
       {
         id: 202,
         name: "Lacrosse for dummies",
         startDate: new Date(addHours(startOfDay(new Date()), 10.25)),
         endDate: new Date(addHours(startOfDay(new Date()), 11.75)),
+        style: {
+          backgroundColor: "#9f93a0",
+        },
       },
       {
         id: 210,
@@ -217,12 +225,19 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
         name: "Hurdles",
         startDate: new Date(addHours(startOfDay(new Date()), 15)),
         endDate: new Date(addHours(startOfDay(new Date()), 16.5)),
+        style: {
+          backgroundColor: "#b3ae57",
+          color: "#444",
+        },
       },
       {
         id: 211,
         name: "Celebration drinks",
         startDate: new Date(addHours(startOfDay(new Date()), 17)),
         endDate: new Date(addHours(startOfDay(new Date()), 19)),
+        style: {
+          backgroundColor: "#324b41",
+        },
       },
     ],
   },
@@ -230,7 +245,7 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
     id: 3,
     name: "Green team",
     style: {
-      backgroundColor: "#307430",
+      background: "linear-gradient(-170deg, #282D43, #307430)",
     },
     items: [
       {
@@ -239,9 +254,6 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
         info: "Gather at the office",
         startDate: new Date(addHours(startOfDay(new Date()), 8.5)),
         endDate: new Date(addHours(startOfDay(new Date()), 10)),
-        style: {
-          backgroundColor: "#877e45",
-        },
       },
       {
         id: 303,
@@ -264,12 +276,19 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
         name: "Hurdles",
         startDate: new Date(addHours(startOfDay(new Date()), 13.25)),
         endDate: new Date(addHours(startOfDay(new Date()), 14.75)),
+        style: {
+          backgroundColor: "#b3ae57",
+          color: "#444",
+        },
       },
       {
         id: 302,
         name: "Lacrosse for dummies",
         startDate: new Date(addHours(startOfDay(new Date()), 15)),
         endDate: new Date(addHours(startOfDay(new Date()), 16.5)),
+        style: {
+          backgroundColor: "#9f93a0",
+        },
       },
 
       {
@@ -277,6 +296,9 @@ export const timetableMockLocationsB: TimeTableLocation[] = [
         name: "Celebration drinks",
         startDate: new Date(addHours(startOfDay(new Date()), 17)),
         endDate: new Date(addHours(startOfDay(new Date()), 19)),
+        style: {
+          backgroundColor: "#324b41",
+        },
       },
     ],
   },
