@@ -31,11 +31,12 @@ export default defineComponent({
       type: Array as PropType<TimeTableItem[]>,
       default: []
     },
-    // dates: {
-    //   type: Array as PropType<string[]>,
-    // },
+    dates: {
+      type: Array as PropType<string[]>,
+    },
     onItemClick: Function as PropType<(item: TimeTableItem) => void>,
     onLocationClick: Function as PropType<(item: TimeTableItem) => void>,
+    onDateChange: Function as PropType<(date: string) => void>,
     renderItem: Function as PropType<(item: TimeTableItem) => HTMLElement>,
     startingHour: {
       type: Number,
@@ -64,7 +65,7 @@ export default defineComponent({
     });
 
     const timetableDates = computed(() => {
-      return useTimetableDates(items.value);
+      return useTimetableDates(items.value, props.dates);
     });
 
     const selectedDate = ref<string>(timetableDates.value[0]);
@@ -117,6 +118,7 @@ export default defineComponent({
 
     function onDateChange (date: string) {
       selectedDate.value = date;
+      props.onDateChange?.(date);
     }
 
     provide('selectedDate', selectedDate);
