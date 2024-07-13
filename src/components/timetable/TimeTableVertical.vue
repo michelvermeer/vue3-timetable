@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { computed, type ComputedRef, defineComponent, inject, ref, Ref, type PropType } from 'vue'
+import { type ComputedRef, defineComponent, inject, ref, Ref, type PropType } from 'vue'
 import type { TimeTableHour, TimeTableItem, TimeTableLocation } from './types';
 import TimeTableMarker from './TimeTableMarker.vue';
 import { format } from 'date-fns';
